@@ -1,0 +1,18 @@
+.root {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+.description {
+  margin: 16px 0;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+}

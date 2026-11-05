@@ -1,44 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import css from "./item-detail.module.css";
 
-type Item = {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  images: string[];
-};
-
-type ItemDetailProps = {
+type Props = {
   id: string;
 };
 
-export default function ItemDetail({ id }: ItemDetailProps) {
-  const [item, setItem] = useState<Item | null>(null);
+type Product = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+};
+
+export default function ItemDetail({ id }: Props) {
+  const [item, setItem] = useState<Product | null>(null);
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${id}`)
+    if (!id) return;
+    fetch("https://dummyjson.com/products/" + id)
       .then((res) => res.json())
       .then((data) => setItem(data));
   }, [id]);
 
-  if (!item) {
-    return <p className="item-detail__loading">Cargando...</p>;
-  }
+  if (!item) return <p>Cargando...</p>;
 
   return (
-    <div className="item-detail">
+    <div className={css.root}>
+      <h2 className={css.title}>{item.title}</h2>
       <Carousel showThumbs={false} infiniteLoop>
-        {item.images.map((image) => (
-          <div key={image}>
-            <img src={image} alt={item.title} />
+        {item.images.map((img) => (
+          <div key={img}>
+            <img src={img} alt={item.title} />
           </div>
         ))}
       </Carousel>
-      <h2 className="item-detail__title">{item.title}</h2>
-      <p className="item-detail__price">${item.price}</p>
-      <p className="item-detail__description">{item.description}</p>
+      <p className={css.description}>{item.description}</p>
+      <p className={css.price}>${item.price}</p>
     </div>
   );
 }

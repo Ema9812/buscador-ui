@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { SearchForm } from "./SearchForm";
 
@@ -12,7 +12,9 @@ export function Layout() {
         <SearchForm />
       </header>
       <main className="layout__content">
-        <Outlet />
+        <Suspense fallback={<p>Cargando...</p>}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );

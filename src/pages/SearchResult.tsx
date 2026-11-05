@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Link } from "react-router-dom";
-import { useSearchResults } from "../hooks/useSearchResults";
+import { useSearchResults } from "../hooks";
 
 function ResultsList() {
   const results = useSearchResults();
